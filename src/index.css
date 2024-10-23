@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    @import url('https://fonts.googleapis.com/css2?family=Bad+Script&display=swap');
+
+    .caveat-font {
+        font-family: "Bad Script", cursive;
+        font-weight: 400;
+        font-style: italic;
+    }
+
+    .custom-underline {
+        position: relative;
+        display: inline-block;
+        font-size: 2rem;
+        font-family: 'Caveat', cursive;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .custom-underline::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(to right, orange, yellow);
+        box-shadow: 0 0 8px rgba(255, 165, 0, 0.8);
+        transform: rotate(-1deg);
+        transform-origin: left;
+    }
+
+    .top3 {
+        top: -64px;
+    }
+
+
+
+}
