@@ -23,7 +23,7 @@ export default {
           default: "1rem",
           sm: "3rem"
         },
-      },
+      }
     },
   },
   plugins: [],

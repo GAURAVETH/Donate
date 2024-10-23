@@ -6,13 +6,10 @@ import { Link } from 'react-router-dom';
 import IMG1 from "../../assets/img1.jpg";
 import IMG2 from "../../assets/img2.jpg";
 import IMG3 from "../../assets/img3.jpg";
-import IMG4 from "../../assets/img4.jpg";
-import IMG5 from "../../assets/img5.jpg";
-import IMG6 from "../../assets/img6.jpg";
 import '../../index.css';
 
 const Content = () => {
-  const images = [IMG1, IMG2, IMG3, IMG4, IMG5, IMG6];
+  const images = [IMG1, IMG2, IMG3];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const sliderRef = useRef(null);
@@ -21,7 +18,7 @@ const Content = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       handleNextSlide();
-    }, 6000); // Slide every 6 seconds
+    }, 6000); // Slide every 5 seconds
 
     return () => clearInterval(interval); // Cleanup on component unmount
   }, []);
@@ -46,7 +43,7 @@ const Content = () => {
   const contentRef = useRef(null);
   const h1Ref = useRef(null);
   const h2Ref = useRef(null);
-  const donateRef = useRef(null);
+  const learnRef = useRef(null);
   const boxRef = useRef(null);
 
   useGSAP(() => {
@@ -56,7 +53,7 @@ const Content = () => {
     tl.from(contentRef.current, {
       scale: 0,
       duration: 0.5,
-      delay: 2,
+      delay: 3.5,
       opacity: 0,
       stagger: 0.2,
       ease: "power3.out"
@@ -78,60 +75,31 @@ const Content = () => {
       stagger: 0.2,
     });
 
-    tl.from(donateRef.current, {
+    tl.from(learnRef.current, {
       scale: 0,
-      duration: 0.4,
+      duration: 0.2,
       delay: 0.2,
       opacity: 0,
       stagger: 0.2,
-      ease: "power3.out",
+      ease: "power3.out"
     });
 
-    // Hover effect using GSAP for scaling
-    const handleMouseEnter = () => {
-      gsap.to(donateRef.current, {
-        scale: 1.1,
-        duration: 0.3,
-        ease: "power3.out",
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(donateRef.current, {
-        scale: 1,
-        duration: 0.3,
-        ease: "power3.out",
-      });
-    };
-
-    // Add event listeners
-    const donateButton = donateRef.current;
-    donateButton.addEventListener('mouseenter', handleMouseEnter);
-    donateButton.addEventListener('mouseleave', handleMouseLeave);
-
-    // Scroll-triggered animation
-    const isMobile = window.innerWidth < 768; // Adjust based on your mobile breakpoint
+    // Scroll animation
     gsap.fromTo(
       boxRef.current,
-      { opacity: 0, y: isMobile ? 50 : 100 }, // Adjust Y value for mobile
+      { opacity: 0, y: 100 },
       {
         opacity: 1,
         y: 0,
         duration: 1.5,
         scrollTrigger: {
           trigger: boxRef.current,
-          start: "top 40%",
+          start: "top 50%",
           end: "bottom 30%",
           scrub: true,
-        },
+        }
       }
     );
-
-    // Cleanup event listeners on unmount
-    return () => {
-      donateButton.removeEventListener('mouseenter', handleMouseEnter);
-      donateButton.removeEventListener('mouseleave', handleMouseLeave);
-    };
   }, []);
 
   return (
@@ -152,7 +120,7 @@ const Content = () => {
               src={image}
               alt={`Slide ${index}`}
               className="w-full h-auto max-h-screen object-cover flex-shrink-0"
-              style={{ width: "100%", height: "100vh" }}
+              style={{ width: "100%" }}
             />
           ))}
         </div>
@@ -160,13 +128,7 @@ const Content = () => {
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center bg-background bg-opacity-50 p-8">
           <h2 ref={h1Ref} className="text-3xl text-white caveat-font mb-2 font-playfair custom-underline">Helping Them Today</h2>
           <h1 ref={h2Ref} className="text-8xl font-bold text-primary mb-4">Help the Poor <br /> in Need</h1>
-          <Link
-            to="/donation"
-            ref={donateRef}
-            className="flex justify-center items-center gap-2 mt-3 py-3 px-8 rounded-full bg-primary text-xl font-semibold transition-colors duration-500"
-          >
-            <h2>Donate</h2>
-          </Link>
+          <Link to="#" ref={learnRef} className="flex justify-center items-center gap-2 mt-3 p-3 rounded-full bg-primary text-xl font-semibold transition-colors duration-500">Learn More</Link>
         </div>
       </div>
 
@@ -175,7 +137,7 @@ const Content = () => {
         {/* Container for cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 p-6 rounded-2xl">
           {/* Card 1 */}
-          <div className="p-9 text-center">
+          <div className="bg-white p-9 text-center">
             <div className="w-16 h-16 mx-auto mb-4">
               <img alt="Become Volunteer" src="https://openui.fly.dev/openui/24x24.svg?text=🤝" className="w-full h-full" />
             </div>
@@ -186,7 +148,7 @@ const Content = () => {
           </div>
 
           {/* Card 2 */}
-          <div className="p-9 text-center">
+          <div className="bg-white p-9 text-center">
             <div className="w-16 h-16 mx-auto mb-4">
               <img alt="Quick Fundraise" src="https://openui.fly.dev/openui/24x24.svg?text=💰" className="w-full h-full" />
             </div>
@@ -197,7 +159,7 @@ const Content = () => {
           </div>
 
           {/* Card 3 */}
-          <div className="p-9 text-center">
+          <div className="bg-white p-9 text-center">
             <div className="w-16 h-16 mx-auto mb-4">
               <img alt="Start Donating" src="https://openui.fly.dev/openui/24x24.svg?text=🎁" className="w-full h-full" />
             </div>
